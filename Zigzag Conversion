@@ -1,0 +1,27 @@
+class Solution {
+public:
+    string convert(string s, int numRows) {
+        if (numRows == 1 || numRows >= s.size()) return s;
+        vector<vector<char>> ans(numRows);
+        int i = 0;
+        bool direction = true;
+        for( auto a : s){
+            ans[i].push_back(a);
+            if(i==(numRows-1)){
+                direction = false;
+                i--;
+            }
+            else if(i==0){
+                direction = true;
+                i++;
+            }
+            else if(direction) i++;
+            else  i--;
+        }
+        string str="";
+        for(auto vec : ans){
+            for(auto ch : vec) str +=ch;
+        }
+        return str;
+    }
+};

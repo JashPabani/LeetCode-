@@ -1,0 +1,27 @@
+class Solution {
+public:
+    int romanToInt(string s) {
+        unordered_map<char,int> m = {{'I',1},{'V',5},{'X',10},{'L',50},{'C',100},{'D', 500},{'M',1000}};
+        int sum = 0;
+        int i = 0;
+       while(i<s.size()){
+            char ch = s[i];
+            
+                if(i<s.size()-1){
+                    char a = s[i+1];
+                    if(m[ch]<m[a]){
+                        sum += (m[a]-m[ch]);
+                        i+=2;
+                    }else{
+                         sum += m[ch];
+                         i++;
+                    }
+                }else{ sum += m[ch];
+                       i++; 
+                }
+                
+        }
+        return sum;
+
+    }
+};

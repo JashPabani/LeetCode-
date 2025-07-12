@@ -1,0 +1,38 @@
+class Solution {
+public:
+    vector<int> kWeakestRows(vector<vector<int>>& mat, int k) {
+        priority_queue<pair<int, int>> pq;
+        map<int, int> mp;
+        int j = 0;
+        for (auto v : mat) {
+            for (auto i : v) {
+                if (i == 1) mp[j]++;
+            }
+            if(mp[j] == 0) mp[j]=0;
+            j++;
+        }
+
+
+        for (auto m : mp) {
+            if (pq.size() < k) {
+                pq.push({m.second, m.first});
+            } else {
+                auto p = pq.top();
+                if (m.second < p.first || 
+                   (m.second == p.first && m.first < p.second)) {
+                    pq.pop();
+                    pq.push({m.second, m.first});
+                }
+            }
+        }
+
+        vector<int> v(k);
+        int b = k - 1;
+        while (!pq.empty()) {
+            v[b--] = pq.top().second;  
+            pq.pop();
+        }
+
+        return v;
+    }
+};

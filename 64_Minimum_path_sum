@@ -1,0 +1,21 @@
+class Solution {
+public:
+    vector<vector<int>> mat;
+    int f(vector<vector<int>> &grid,int sum,int &mi,int r,int c,int n,int m){
+        
+        if(r==n-1 && c == m-1) return grid[r][c];
+        if(r>=n || c >= m || r < 0 || c < 0) return INT_MAX;
+        if(mat[r][c] != -1) return mat[r][c]; 
+        int x= f(grid,sum+grid[r][c],mi,r+1,c,n,m);
+        int y = f(grid,sum+grid[r][c],mi,r,c+1,n,m);
+        mat[r][c] = grid[r][c] + min(x,y);
+        return mat[r][c];
+    }
+    int minPathSum(vector<vector<int>>& grid) {
+        mat.resize(grid.size(),vector<int>(grid[0].size(),-1));
+        int sum = 0;
+        int mi = INT_MAX;
+        mi=f(grid,sum,mi,0,0,grid.size(),grid[0].size());
+        return mi;
+    }
+};

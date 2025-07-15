@@ -1,0 +1,25 @@
+class Solution {
+public:
+    TreeNode* first = nullptr;
+    TreeNode* second = nullptr;
+    TreeNode* prev = nullptr;
+
+    void f(TreeNode* root){
+        if (!root) return;
+
+        f(root->left);
+
+        if (prev && prev->val > root->val) {
+            if (!first) first = prev;
+            second = root;
+        }
+        prev = root;
+
+        f(root->right);
+    }
+
+    void recoverTree(TreeNode* root){
+        f(root);
+        if (first && second) swap(first->val, second->val);
+    }
+};

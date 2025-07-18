@@ -1,0 +1,18 @@
+class Solution {
+public:
+    vector<int> intersection(vector<int>& nums1, vector<int>& nums2) {
+        set<int> s;
+        int i = 0, j = 0;
+        int m = nums1.size()*nums2.size();
+        while(m-- && i < nums1.size()){
+            if(nums1[i] == nums2[j]) s.insert(nums1[i]);
+            // i++;
+            j++;
+            
+            if(j==nums2.size()) j = 0,i += 1;
+        }
+        vector<int> v;
+        for(auto a : s) v.push_back(a);
+        return v; 
+    }
+};

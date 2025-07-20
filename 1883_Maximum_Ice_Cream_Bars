@@ -1,0 +1,20 @@
+class Solution {
+public:
+    int maxIceCream(vector<int>& costs, int coins) {
+        int m = costs[0];
+        for(int i = 1; i < costs.size(); i++) m = max(m,costs[i]);
+        vector<int> v(m+1,0);
+        for(int i = 0; i < costs.size(); i++) v[costs[i]]++;
+
+        int ans = 0;
+        for(int i = 1; i < m+1; i++){
+            if(i > coins) break;
+            if(v[i] == 0) continue;
+            while(v[i]-- && i <= coins){
+                ans++;
+                coins -= i;
+            }
+        }
+        return ans;
+    }
+};

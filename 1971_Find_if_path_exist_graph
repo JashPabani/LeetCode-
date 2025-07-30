@@ -1,0 +1,24 @@
+class Solution {
+public:
+    vector<list<int>> graph;
+    set<int> s;
+    bool dfs(int source, int destination){
+        s.insert(source);
+        if(source == destination) return true;
+        for(auto g : graph[source]){
+            if(!s.count(g)){
+                if(dfs(g, destination)) return true;
+            }
+        }
+        return false;
+    }
+    bool validPath(int n, vector<vector<int>>& edges, int source, int destination) {
+        graph.resize(n);
+        s.clear();
+        for(auto vec : edges){
+            graph[vec[0]].push_back(vec[1]);
+            graph[vec[1]].push_back(vec[0]);
+        }
+        return dfs( source, destination);
+    }
+};

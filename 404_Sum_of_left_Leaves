@@ -1,0 +1,15 @@
+class Solution {
+public:
+    int sum;
+    void f(TreeNode* r,bool flag){
+        if(!r) return;
+        if((!r->right) && (!r->left) && flag) sum += r->val;
+        f(r->left,true);
+        f(r->right,false);
+    }
+    int sumOfLeftLeaves(TreeNode* root) {
+        sum = 0;
+        f(root,false);
+        return sum;
+    }
+};

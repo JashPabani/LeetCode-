@@ -1,0 +1,19 @@
+class Solution {
+public:
+    set<int> visited;
+
+    void dfs(vector<vector<int>>& rooms, int curr) {
+        if (visited.count(curr)) return;
+        visited.insert(curr);
+
+        for (int neighbour : rooms[curr]) {
+            dfs(rooms, neighbour); 
+        }
+    }
+
+    bool canVisitAllRooms(vector<vector<int>>& rooms) {
+        visited.clear();
+        dfs(rooms, 0);
+        return visited.size() == rooms.size();
+    }
+};
